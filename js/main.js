@@ -53,7 +53,37 @@
             '<i class="bi bi-chevron-right"></i>'
         ]
     });
+    
 
+    document.addEventListener('DOMContentLoaded', function() {
+        let categoryButtons = document.querySelectorAll('.category-button');
+    
+        // Initialize Isotope
+        let grid = new Isotope('.gallery-container', {
+            itemSelector: '.gallery-item',
+            layoutMode: 'fitRows'
+        });
+    
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                let category = this.dataset.category;
+    
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+    
+                // Add active class to clicked button
+                this.classList.add('active');
+    
+                // Filter items
+                if (category === 'all') {
+                    grid.arrange({ filter: '*' });
+                } else {
+                    grid.arrange({ filter: '.' + category });
+                }
+            });
+        });
+    });
+    
+    
     
 })(jQuery);
-
